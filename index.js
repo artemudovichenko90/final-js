@@ -8,7 +8,6 @@ mapSocialClass.set('www.instagram.com', 'fa-instagram-square');
 
 const arrSelectedActors = [];
 
-
 fetch("./data.json")
   .then((response) => response.json())
   .then((users) => {
@@ -137,13 +136,22 @@ function selectActorHandler({ target }) {
   const listSelectedActors = document.getElementById('list-selected-actors');
   const selectedActor = createElement(
     'li',
-    { classes: ['selected-actor'] },
+    {
+      classes: ['selected-actor'],
+      events: { dblclick: selectedActorHandler },
+      datasets: { fullName: fullName }
+    },
     document.createTextNode(fullName)
   )
   if (!arrSelectedActors.includes(fullName) && target.tagName !== 'A') {
     arrSelectedActors.push(fullName);
     listSelectedActors.append(selectedActor);
   }
+}
+
+function selectedActorHandler({ target, target: { dataset: { fullName } } }) {
+  target.remove();
+  arrSelectedActors.splice(arrSelectedActors.indexOf(fullName), 1)
 }
 
 function photoErrorHandler({ target }) {
