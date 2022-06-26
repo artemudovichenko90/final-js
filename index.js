@@ -8,6 +8,7 @@ mapSocialClass.set('www.instagram.com', 'fa-instagram-square');
 
 const arrSelectedActors = [];
 
+
 fetch("./data.json")
   .then((response) => response.json())
   .then((users) => {
@@ -17,7 +18,9 @@ fetch("./data.json")
     root.append(...cards);
   })
   .catch((error) => {
-    console.log(error);
+    const cardsSections = document.querySelector('section.cards-section');
+    cardsSections.style.visibility = 'hidden';
+    alert('No data, server error. Try later')
   })
 
 
